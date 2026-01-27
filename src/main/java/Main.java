@@ -1,13 +1,13 @@
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Scanner;
+
 import dao.AutorDAO;
 import dao.LlibreDAO;
 import dao.PrestecDAO;
 import model.Autor;
 import model.Llibre;
 import model.Prestec;
-
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Scanner;
 
 public class Main {
 
@@ -21,6 +21,7 @@ public class Main {
 
         while (!exit) {
             System.out.println("\n===== MENÚ PRINCIPAL =====");
+            System.out.println("0. Inicializar/Llenar Base de Datos");
             System.out.println("1. Autor");
             System.out.println("2. Llibre");
             System.out.println("3. Prestec");
@@ -30,6 +31,7 @@ public class Main {
             sc.nextLine();
 
             switch (opcion) {
+                case 0 -> menuInicializacion();
                 case 1 -> menuAutor();
                 case 2 -> menuLlibre();
                 case 3 -> menuPrestec();
@@ -39,6 +41,31 @@ public class Main {
         }
         System.out.println("Saliendo de la aplicación...");
         sc.close();
+    }
+
+    // =========================
+    // MENÚ INICIALIZACIÓN
+    // =========================
+    private static void menuInicializacion() {
+        System.out.println("\n--- INICIALIZACIÓN DE BASE DE DATOS ---");
+        System.out.println("1. Crear estructura (InitDB)");
+        System.out.println("2. Llenar con datos (SeedDB)");
+        System.out.println("3. Crear estructura y llenar");
+        System.out.println("0. Volver");
+        System.out.print("Selecciona una opción: ");
+        int opcion = sc.nextInt();
+        sc.nextLine();
+
+        switch (opcion) {
+            case 1 -> InitDB.initialize();
+            case 2 -> SeedDB.seed();
+            case 3 -> {
+                InitDB.initialize();
+                SeedDB.seed();
+            }
+            case 0 -> {}
+            default -> System.out.println("Opción no válida");
+        }
     }
 
     // =========================
